@@ -143,8 +143,7 @@ var education = {
            	location: "San Jose, CA",
            	degree: "In Progress",
            	majors: "Digital Media Art",
-           	dates: "2010 - 2014",
-           	url: "https://www.sjsu.edu"
+           	dates: "2010 - 2014",       
         },
         {	
         	name: "DeAnza Community College",
@@ -152,7 +151,6 @@ var education = {
            	degree: "Associates Degree - Liberal Arts",
            	majors: "Graphic Design",
            	dates: "2007 - 2010",
-           	url: "https://www.deanza.edu"
         }
     ],
     onlineCourses: [
@@ -164,14 +162,41 @@ var education = {
         }
     ],
     display: function() {
-    	if(education.schools.length !== 0 || education.onlineCourses.length !== 0) {
-    		
+    	if(education.schools.length !== 0) {
+    		$('#education').append(HTMLschoolStart);
+    		for(var i = 0; i < education.schools.length; i++) {
+    			var formattedSchoolName = HTMLschoolName.replace("%data%", education.schools[i].name);
+    			var formattedSchoolDegree = HTMLschoolDegree.replace("%data%", education.schools[i].degree);
+    			var formattedSchoolDates = HTMLschoolDates.replace("%data%", education.schools[i].dates);
+    			var formattedSchoolLocation = HTMLschoolLocation.replace("%data%", education.schools[i].location);
+    			var formattedSchoolMajor = HTMLschoolMajor.replace("%data%", education.schools[i].majors);
+    			$('.education-entry').append(formattedSchoolName);
+    			$('.education-entry').append(formattedSchoolDegree);
+    			$('.education-entry').append(formattedSchoolDates);
+    			$('.education-entry').append(formattedSchoolLocation);
+    			$('.education-entry').append(formattedSchoolMajor);
+    		}
+    	}
+    	if(education.onlineCourses.length !== 0) {
+			$('.education-entry').append(HTMLonlineClasses);
+    		for(var i = 0; i < education.onlineCourses.length; i++) {
+    			var formattedOnlineTitle = HTMLonlineTitle.replace("%data%", education.onlineCourses[i].title);
+    			var formattedOnlineSchool = HTMLonlineSchool.replace("%data%", education.onlineCourses[i].school);
+    			var formattedOnlineDates = HTMLonlineDates.replace("%data%", education.onlineCourses[i].dates);
+    			var formattedOnlineURL = HTMLonlineURL.replace("%data%", education.onlineCourses[i].url);
+    			$('.education-entry').append(formattedOnlineTitle);
+    			$('.education-entry').append(formattedOnlineSchool);
+    			$('.education-entry').append(formattedOnlineDates);
+    			$('.education-entry').append(formattedOnlineURL);
+
+    		}
     	}
     }
 }
-
 
 bio.display();
 work.display();
 projects.display();
 education.display();
+
+$('#mapDiv').append(googleMap);
