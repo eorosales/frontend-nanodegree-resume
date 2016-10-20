@@ -25,9 +25,13 @@ var bio = {
   		$('#header').prepend(role);
   		$('#header').prepend(name);
   		$('#topContacts').append(mobile);
+  		$('#footerContacts').append(mobile);
   		$('#topContacts').append(email);
+  		$('#footerContacts').append(email);
   		$('#topContacts').append(github);
+  		$('#footerContacts').append(github);
   		$('#topContacts').append(location);
+  		$('#footerContacts').append(location);
   		$('#header').append(welcomeMessage);
   		$('#header').append(bioPic);
   		
