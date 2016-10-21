@@ -43,7 +43,7 @@ var bio = {
   			}
   		}
   	}
-}
+};
 
 var work = {
 	"jobs" : [
@@ -102,6 +102,7 @@ var work = {
 				var job = formattedEmployer + formattedWorkTitle;
 				$('.work-entry:last').append(job);
 				$('.work-entry:last').append(formattedWorkDates);
+				$('.work-entry:last').append(formattedWorkLocation);
 				$('.work-entry:last').append(formattedWorkDescription);
 			}
 		}
@@ -109,28 +110,32 @@ var work = {
 }
 
 var projects = {
-	"project" : [
+	"projects" : [
 		{
 			"title" : "Red Berry Coffee Bar Website",
 			"dates" : "2015",
 			"description" : "A simple website designed for Red Berry Coffee Bar, a cafe in which I used to work at.",
-			"images" : "http://redberrycoffeebar.com/img/logo.png"
+			"images" : ["http://redberrycoffeebar.com/img/logo.png"]
 		},
 		{
 			"title" : "Photography Website",
 			"dates" : "2016",
 			"description" : "My photography portfolio built on squarespace.",
-			"images" : "https://static1.squarespace.com/static/56e270af27d4bd91a219f992/t/56ec84951bbee05366b6ad52/1476090596950/?format=1000w"
+			"images" : ["https://static1.squarespace.com/static/56e270af27d4bd91a219f992/t/56ec84951bbee05366b6ad52/1476090596950/?format=1000w"]
 		}
 	],
 	display : function() {
 		$("#projects").append(HTMLprojectStart);
-			if(projects.project.length !== 0) {
-				for(var i = 0; i < projects.project.length; i++) {
-					var formattedProjectTitle = HTMLprojectTitle.replace("%data%", projects.project[i].title);
-					var formattedProjectDates = HTMLprojectDates.replace("%data%", projects.project[i].dates);
-					var formattedProjectDescription = HTMLprojectDescription.replace("%data%", projects.project[i].description);
-					var formattedProjectImages = HTMLprojectImage.replace("%data%", projects.project[i].images);           
+			if(projects.projects.length !== 0) {
+				for(var i = 0; i < projects.projects.length; i++) {
+					var formattedProjectTitle = HTMLprojectTitle.replace("%data%", projects.projects[i].title);
+					var formattedProjectDates = HTMLprojectDates.replace("%data%", projects.projects[i].dates);
+					var formattedProjectDescription = HTMLprojectDescription.replace("%data%", projects.projects[i].description);
+					if(projects.projects[i].images.length !== 0) {
+						for(var j = 0; j < projects.projects[i].images.length; j++) {
+							var formattedProjectImages = HTMLprojectImage.replace("%data%", projects.projects[i].images[j]);
+						}
+					}
 					$('.project-entry:last').append(formattedProjectTitle);
 					$('.project-entry:last').append(formattedProjectDates);
 					$('.project-entry:last').append(formattedProjectDescription);
@@ -146,15 +151,17 @@ var education = {
         	name: "San Jose State University",
            	location: "San Jose, CA",
            	degree: "In Progress",
-           	majors: "Digital Media Art",
-           	dates: "2010 - 2014",       
+           	majors: ["Digital Media Art"],
+           	dates: "2010 - 2014", 
+           	url: "http://www.sjsu.edu"      
         },
         {	
         	name: "DeAnza Community College",
            	location: "Cupertino, CA",
            	degree: "Associates Degree - Liberal Arts",
-           	majors: "Graphic Design",
+           	majors: ["Graphic Design"],
            	dates: "2007 - 2010",
+           	url: "http://www.deanza.edu"
         }
     ],
     onlineCourses: [
@@ -169,13 +176,17 @@ var education = {
     	if(education.schools.length !== 0) {
     		$('#education').append(HTMLschoolStart);
     		for(var i = 0; i < education.schools.length; i++) {
+    			HTMLschoolName = HTMLschoolName.replace("#", education.schools[i].url);
     			var formattedSchoolName = HTMLschoolName.replace("%data%", education.schools[i].name);
     			var formattedSchoolDegree = HTMLschoolDegree.replace("%data%", education.schools[i].degree);
     			var formattedSchoolDates = HTMLschoolDates.replace("%data%", education.schools[i].dates);
     			var formattedSchoolLocation = HTMLschoolLocation.replace("%data%", education.schools[i].location);
-    			var formattedSchoolMajor = HTMLschoolMajor.replace("%data%", education.schools[i].majors);
-    			$('.education-entry').append(formattedSchoolName);
-    			$('.education-entry').append(formattedSchoolDegree);
+    			if(education.schools[i].majors.length !== 0) {
+						for(var j = 0; j < education.schools[i].majors.length; j++) {
+							var formattedSchoolMajor = HTMLschoolMajor.replace("%data%", education.schools[i].majors[j]);
+						}
+					}
+    			$('.education-entry').append(formattedSchoolName + formattedSchoolDegree);
     			$('.education-entry').append(formattedSchoolDates);
     			$('.education-entry').append(formattedSchoolLocation);
     			$('.education-entry').append(formattedSchoolMajor);
